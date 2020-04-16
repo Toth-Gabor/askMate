@@ -17,5 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/list', 'QuestionsController@index');
+Route::get('/list', 'QuestionsController@index')->name('questions');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
