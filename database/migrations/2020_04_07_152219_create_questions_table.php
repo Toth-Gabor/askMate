@@ -14,8 +14,14 @@ class CreateQuestionsTable extends Migration
     public function up()
     {
         Schema::create('questions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('question_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamp('submission_time')->useCurrent();
+            $table->integer('view_number')->default(0);
+            $table->integer('vote_number')->default(0);
+            $table->string('title');
+            $table->string('message');
+            $table->string('image')->nullable();
         });
     }
 

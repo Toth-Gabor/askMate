@@ -14,10 +14,21 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
-            $table->id('answer_id')->autoIncrement()->primary();
+            $table->bigIncrements('answer_id');
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreignId('question_id')
+                ->references('question_id')
+                ->on('questions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->timestamp('submission_time')->useCurrent();
             $table->integer('vote_number')->default(0);
-            $table->foreignId('question_id');
             $table->string('message');
             $table->string('image');
         });

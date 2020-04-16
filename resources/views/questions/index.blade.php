@@ -3,46 +3,25 @@
 @section('content')
     <div class="container">
         <div class="title">
-            <h1>Lista oldal</h1>
+            <h1>All Questions</h1>
         </div>
         <div>
-            <table class="table table-bordered table-hover table-active">
-                <th>
-                    Id
-                </th>
-                <th>
-                    Submission Time
-                </th>
-                <th>
-                    View
-                </th>
-                <th>
-                    Vote
-                </th>
-                <th>
-                    Title
-                </th>
+            <table class="table table-bordered table-hover table-striped">
+                <th>Title</th>
+                <th>Owner</th>
+                <th>View</th>
+                <th>Vote</th>
+                <th>Submission Time</th>
                 @foreach($questionList as $question)
-                    <tr>
-                        <td>
-                            {{{ $question->question_id }}}
-                        </td>
-                        <td>
-                            {{{ $question->submission_time }}}
-                        </td>
-                        <td>
-                            {{{ $question->view_number }}}
-                        </td>
-                        <td>
-                            {{{ $question->vote_number }}}
-                        </td>
-                        <td>
-                            {{{ $question->title }}}
-                        </td>
+                    <tr data="{{{ $question->question_id }}}">
+                        <td>{{{ $question->title }}}</td>
+                        <td>{{{ $question->name }}}</td>
+                        <td>{{{ $question->view_number }}}</td>
+                        <td>{{{ $question->vote_number }}}</td>
+                        <td>{{{ $question->submission_time }}}</td>
                     </tr>
                 @endforeach
             </table>
         </div>
     </div>
-</div>
 @endsection
