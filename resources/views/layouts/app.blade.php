@@ -83,6 +83,5 @@
         @yield('content')
     </main>
 </div>
-@yield('jQuery')
 </body>
 </html>
