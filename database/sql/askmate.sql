@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Ápr 16. 13:43
+-- Létrehozás ideje: 2020. Ápr 19. 08:49
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.9
 
@@ -110,8 +110,8 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`question_id`, `user_id`, `submission_time`, `view_number`, `vote_number`, `title`, `message`, `image`) VALUES
-(1, 1, '2020-04-15 04:35:03', 0, 0, 'Teszt Kérdés', 'Vajon mikor sikerül ezt megjeleníteni?', NULL),
-(2, 1, '2020-04-15 04:36:48', 0, 0, 'Második Teszt Kérdés', 'Vajon mikor sikerül ezt is szépen megjeleníteni?', NULL);
+(1, 1, '2020-04-15 02:35:03', 0, 0, 'Teszt Kérdés', 'Vajon mikor sikerül ezt megjeleníteni?', NULL),
+(2, 1, '2020-04-15 02:36:48', 0, 0, 'Második Teszt Kérdés', 'Vajon mikor sikerül ezt is szépen megjeleníteni?', NULL);
 
 -- --------------------------------------------------------
 
@@ -123,6 +123,7 @@ CREATE TABLE `users` (
                          `id` bigint(20) UNSIGNED NOT NULL,
                          `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `profile_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                          `email_verified_at` timestamp NULL DEFAULT NULL,
                          `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -134,8 +135,8 @@ CREATE TABLE `users` (
 -- A tábla adatainak kiíratása `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tóth Gábor', 'g@gmail.com', NULL, '$2y$10$ojADgPw.E/tesLyX.sWUpeeKi8HlbZCR9jqAIrVSmQR.iOQGEeT.6', NULL, '2020-04-16 09:39:04', '2020-04-16 09:39:04');
+INSERT INTO `users` (`id`, `name`, `email`, `profile_image`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Tóth Gábor', 'g@gmail.com', NULL, NULL, '$2y$10$ojADgPw.E/tesLyX.sWUpeeKi8HlbZCR9jqAIrVSmQR.iOQGEeT.6', NULL, '2020-04-16 07:39:04', '2020-04-16 07:39:04');
 
 --
 -- Indexek a kiírt táblákhoz

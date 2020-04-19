@@ -17,10 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/list', 'QuestionsController@index')->name('questions');
+Route::get('/question/index', 'QuestionController@index')->name('question.index');
 
-Route::get('/question', 'QuestionsController@question')->name('question');
+Route::get('/question/show', 'QuestionController@show')->name('question.show');
+Route::get('/question/create', 'QuestionController@create')->name('question.create');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::post('/profile/update', 'ProfileController@updateProfile')->name('profile.update');
