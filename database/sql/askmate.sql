@@ -109,9 +109,9 @@ CREATE TABLE `questions` (
 -- A tábla adatainak kiíratása `questions`
 --
 
-INSERT INTO `questions` (`question_id`, `user_id`, `submission_time`, `view_number`, `vote_number`, `title`, `message`, `image`) VALUES
-(1, 1, '2020-04-15 02:35:03', 0, 0, 'Teszt Kérdés', 'Vajon mikor sikerül ezt megjeleníteni?', NULL),
-(2, 1, '2020-04-15 02:36:48', 0, 0, 'Második Teszt Kérdés', 'Vajon mikor sikerül ezt is szépen megjeleníteni?', NULL);
+INSERT INTO `questions` (`question_id`, `user_id`, `title`, `message`, `image`,`view_number`, `vote_number`,  `created_at`, `updated_at`) VALUES
+(1, 1, 'Teszt Kérdés', 'Vajon mikor sikerül ezt megjeleníteni?', NULL, 0, 0, '2020-04-15 02:35:03', NULL),
+(2, 1, 'Második Teszt Kérdés', 'Vajon mikor sikerül ezt is szépen megjeleníteni?', NULL, 0, 0, '2020-04-15 02:36:48', NULL);
 
 -- --------------------------------------------------------
 

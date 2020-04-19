@@ -19,8 +19,9 @@ Route::get('/', function () {
 
 Route::get('/question/index', 'QuestionController@index')->name('question.index');
 
-Route::get('/question/show', 'QuestionController@show')->name('question.show');
-Route::get('/question/create', 'QuestionController@create')->name('question.create');
+Route::get('/question/show/{id}', 'QuestionController@show')->name('question.show');
+Route::get('/question/add', 'QuestionController@add')->name('question.add');
+Route::post('/question/create', 'QuestionController@create')->name('question.create');
 
 Auth::routes();
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
+use Illuminate\View\View;
 use Str;
+
 
 class ProfileController extends Controller
 {
@@ -16,11 +19,19 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * @return Factory|View
+     */
     public function index()
     {
         return view('auth.profile');
     }
 
+    /**
+     * You can update your profile details and upload image
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateProfile(Request $request)
     {
         // Form validation

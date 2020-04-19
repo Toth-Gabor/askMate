@@ -21,7 +21,7 @@
                         <td>{{{ $question->vote_number }}}</td>
                         <td>{{{ $question->submission_time }}}</td>
                         <td>
-                            <a href="question/show?id={{{ $question->question_id }}}" class="btn btn-primary">
+                            <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}" class="btn btn-primary">
                                 Select
                             </a>
                         </td>
