@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Traits\UploadTrait;
+use File;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Question;
 use Illuminate\View\View;
+use Storage;
 use Str;
-use Symfony\Component\Console\Input\Input;
 
 
 class QuestionController extends Controller
@@ -24,7 +25,7 @@ class QuestionController extends Controller
     public function index()
     {
         $user = User::find(1);
-        $questionList = Question::all()->sortBy('submission_time', SORT_REGULAR, 'desc');
+        $questionList = Question::all()->sortBy('created_at', SORT_REGULAR, 'desc');
 
         return view('question.index', ['questionList' => $questionList, 'user' => $user]);
     }
@@ -37,7 +38,6 @@ class QuestionController extends Controller
     public function show(Request $request)
     {
         $questionId = $request->id;
-
         $question = Question::find($questionId);
         $user = User::find($question->user_id);
 
@@ -53,7 +53,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * create new question with|without image and save into DataBase
+     * create new question with or without image and save it into the DataBase
      * @param Request $request
      * @return Factory|RedirectResponse|View
      */
@@ -61,42 +61,63 @@ class QuestionController extends Controller
     {
         // Form validation
         $request->validate([
-            'title'     =>  'required|unique:questions|max:255',
-            'message'   =>  'required|unique:questions|max:500',
-            'image'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'title' => 'required|unique:questions|max:255',
+            'message' => 'required|unique:questions|max:500',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         // Get current user
         $user = User::findOrFail(auth()->user()->id);
         $filePath = null;
-        // New question
-        $question = new Question();
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
             // Get image file
             $image = $request->file('image');
-            // Make a image name based on user name and current timestamp
-            $name = Str::slug($request->input('name')).'_'.time();
             // Define folder path
-            $folder = '/uploads/images/question';
-            // Make a file path where image will be stored [ folder path + file name + file extension]
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $folder = 'public/uploads/question';
             // Upload image
-            $this->uploadOne($image, $folder, 'public', $name);
-
+            $filePath = Storage::putFile($folder, $image , 'public');
         }
-
+        // New question
+        $question = new Question();
         $question->title = $request->title;
         $question->user_id = $user->id;
         $question->message = $request->message;
         $question->image = $filePath;
         // Persist question record to database
         $question->save();
-
-
         // Return user back and show a flash message
-        return redirect()->back()->with(['status' => 'New question created successfully.']);
 
+        return redirect(route('question.index'))->with(['status' => 'New question created successfully.']);
     }
+
+    /**
+     * @return Factory|View
+     */
+    public function edit()
+    {
+        return view('question.update');
+    }
+
+    public function update()
+    {
+        //
+    }
+
+    public function delete(Request $request)
+    {
+        $questionId = $request->id;
+        $question = Question::find($questionId);
+        //dd(file_exists(str_replace('\\', '/', public_path()) . $question->image));
+        // delete image if question has it
+        if (Storage::exists($question->image)){
+            Storage::delete($question->image);
+        }
+        $question->delete();
+        // Return user back and show a flash message
+        return redirect()->back()->with(['status' => 'Question was deleted successfully.']);
+    }
+
 }
+

@@ -18,13 +18,7 @@ class Question extends Model
         'title', 'message', 'image'
     ];
 
-    /**
-     * @return mixed
-     */
-    public function getImageAttribute()
-    {
-        return $this->image;
-    }
+
 
 
 }

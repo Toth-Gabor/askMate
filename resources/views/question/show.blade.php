@@ -9,7 +9,7 @@
             <div class="col-md-10">
                 <div class="card shadow">
                     <div class="card-header bg-primary">{{{ $question->title }}}</div>
-                    <div class="card-body bg-info">{{{  "Owner: " . $user->name . " created at: " . $question->submission_time }}}</div>
+                    <div class="card-body bg-info">{{{  "Owner: " . $user->name . " created at: " . $question->created_at }}}</div>
                     <div class="card-body bg-info">{{{ $question->message }}}</div>
                 </div>
             </div>
