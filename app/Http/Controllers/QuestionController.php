@@ -93,24 +93,69 @@ class QuestionController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return Factory|View
      */
-    public function edit()
+    public function edit(Request $request)
     {
-        return view('question.update');
+        $questionId = $request->id;
+        $question = Question::find($questionId);
+        return view('question.update', ['question' => $question]);
     }
 
-    public function update()
+    /**
+     * @param Request $request
+     * @return RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request)
     {
-        //
+        // Form validation
+        $request->validate([
+            'title' => 'required|unique:questions|max:255',
+            'message' => 'required|unique:questions|max:500',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $questionId = $request->id;
+        $question = Question::find($questionId);
+
+        // Check if an image has been uploaded
+        if ($request->has('image')) {
+            // Get image file
+            $image = $request->file('image');
+            // Define folder path
+            $folder = 'public/uploads/question';
+            // Upload image
+            $filePath = Storage::putFile($folder, $image , 'public');
+            // Get old image path
+            $oldImage = $question->image;
+            // Set new image path
+            $question->image = $filePath;
+            // delete belonging old image for question
+            if (Storage::exists($oldImage)){
+                Storage::delete($oldImage);
+            }
+        }
+        // Update question data
+        $question->title = $request->title;
+        $question->message = $request->message;
+        // Persist question record to database
+        $question->save();
+        // Return user back and show a flash message
+
+        return redirect(route('question.index'))->with(['status' => 'New question created successfully.']);
     }
 
+    /**
+     * Delete question and the belonging image
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function delete(Request $request)
     {
         $questionId = $request->id;
         $question = Question::find($questionId);
-        //dd(file_exists(str_replace('\\', '/', public_path()) . $question->image));
-        // delete image if question has it
+        // delete belonging image to question
         if (Storage::exists($question->image)){
             Storage::delete($question->image);
         }

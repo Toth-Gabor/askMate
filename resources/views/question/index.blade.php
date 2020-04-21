@@ -34,7 +34,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
+                            <a href="{{{ route('question.edit', ['id'=> $question->question_id ])}}}"
                                class="btn btn-success">
                                 Edit
                             </a>
