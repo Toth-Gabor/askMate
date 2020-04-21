@@ -38,7 +38,11 @@ class QuestionController extends Controller
     public function show(Request $request)
     {
         $questionId = $request->id;
+
         $question = Question::find($questionId);
+        // Increase view count
+        $question->view_number++;
+        $question->save();
         $user = User::find($question->user_id);
 
         return view('question.show', ['question' => $question, 'user' => $user]);
@@ -162,6 +166,29 @@ class QuestionController extends Controller
         $question->delete();
         // Return user back and show a flash message
         return redirect()->back()->with(['status' => 'Question was deleted successfully.']);
+    }
+
+    public function voteUp(Request $request)
+    {
+        $questionId = $request->id;
+        $question = Question::find($questionId);
+        $user = User::find($question->user_id);
+        $question->vote_number++;
+        $question->save();
+        // Return user back and show a flash message
+        return view('question.show', ['question' => $question, 'user' => $user]);
+
+    }
+
+    public function voteDown(Request $request)
+    {
+        $questionId = $request->id;
+        $question = Question::find($questionId);
+        $user = User::find($question->user_id);
+        $question->vote_number--;
+        $question->save();
+        // Return user back and show a flash message
+        return view('question.show', ['question' => $question, 'user' => $user]);
     }
 
 }

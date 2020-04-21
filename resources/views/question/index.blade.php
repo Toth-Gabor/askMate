@@ -12,20 +12,18 @@
         </div>
         <div class="shadow">
             <table class="table table-bordered bg-primary">
+                <th>View</th>
                 <th>Title</th>
                 <th>Owner</th>
-                <th>View</th>
-                <th>Vote</th>
                 <th>Submission time</th>
                 <th>Read</th>
                 <th>Edit</th>
                 <th>Delete</th>
                 @foreach($questionList as $question)
-                    <tr class="bg-info">
+                    <tr class="bg-info text">
+                        <td>{{{ $question->view_number }}}</td>
                         <td>{{{ $question->title }}}</td>
                         <td>{{{ $user->name }}}</td>
-                        <td>{{{ $question->view_number }}}</td>
-                        <td>{{{ $question->vote_number }}}</td>
                         <td>{{{ $question->created_at }}}</td>
                         <td>
                             <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
