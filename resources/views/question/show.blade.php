@@ -4,8 +4,13 @@
     <div class="container">
         <div class="title text-center">
             <h1>Question</h1>
+            <div>{{{
+                     'Asked by: ' . $user->name
+                   . ' Created at: ' . $question->created_at
+                   . ' Viewed: ' . $question->view_number
+                   }}}</div>
         </div>
-
+        <!--question vote section-->
         <div class="row justify-content-center">
             <div class="col-xs-6 float-left" style="width: 50px">
                 <div class="vote-section">
@@ -29,13 +34,14 @@
                     </a>
                 </div>
             </div>
+            <!--question vote section end-->
             <div class="col-md-10 float-right">
                 <div class="card shadow">
-                    <div class="card-header bg-primary">{{{ $question->title }}}</div>
-                    <div
-                        class="card-body bg-info">{{{  "Owner: " . $user->name . " created at: " . $question->created_at }}}</div>
-                    <div class="card-body bg-info">{{{ $question->message }}}</div>
-                    <div class="card-img"><img src='{{{ 'storage/app/' . $question->image }}}' alt="No"></div>
+                    <div class="card-header light-grey question-header">{{{ $question->title }}}</div>
+                    <div class="card-body ">{{{ $question->message }}}</div>
+                    <div class="img-responsive">
+                        <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
+                    </div>
                 </div>
             </div>
         </div>

@@ -78,10 +78,12 @@ class QuestionController extends Controller
         if ($request->has('image')) {
             // Get image file
             $image = $request->file('image');
+            // Create file name
+            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
             // Define folder path
-            $folder = 'public/uploads/question';
+            $folder = 'storage/uploads/question';
             // Upload image
-            $filePath = Storage::putFile($folder, $image , 'public');
+            $filePath = $request->image->storeAs($folder, $fileName , 'public');
         }
         // New question
         $question = new Question();
