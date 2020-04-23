@@ -106,6 +106,7 @@ class QuestionController extends Controller
     {
         $questionId = $request->id;
         $question = Question::find($questionId);
+
         return view('question.update', ['question' => $question]);
     }
 
@@ -174,11 +175,10 @@ class QuestionController extends Controller
     {
         $questionId = $request->id;
         $question = Question::find($questionId);
-        $user = User::find($question->user_id);
         $question->vote_number++;
         $question->save();
-        // Return user back and show a flash message
-        return view('question.show', ['question' => $question, 'user' => $user]);
+
+        return redirect(route('question.index'))->with(['status' => 'Your vote saved successfully.']);
 
     }
 
@@ -186,11 +186,10 @@ class QuestionController extends Controller
     {
         $questionId = $request->id;
         $question = Question::find($questionId);
-        $user = User::find($question->user_id);
         $question->vote_number--;
         $question->save();
-        // Return user back and show a flash message
-        return view('question.show', ['question' => $question, 'user' => $user]);
+
+        return redirect(route('question.index'))->with(['status' => 'Your vote saved successfully.']);
     }
 
 }

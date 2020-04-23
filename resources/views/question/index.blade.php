@@ -11,16 +11,18 @@
             <h1 class="text-black-50">All Questions</h1>
         </div>
         <div class="shadow">
-            <table class="table table-bordered bg-primary">
-                <th>View</th>
-                <th>Title</th>
-                <th>Owner</th>
-                <th>Submission time</th>
-                <th>Read</th>
-                <th>Edit</th>
-                <th>Delete</th>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>View</th>
+                        <th>Title</th>
+                        <th>Owner</th>
+                        <th>Submission time</th>
+                        <th>Read</th>
+                    </tr>
+                </thead>
                 @foreach($questionList as $question)
-                    <tr class="bg-info text">
+                    <tr class="text">
                         <td>{{{ $question->view_number }}}</td>
                         <td>{{{ $question->title }}}</td>
                         <td>{{{ $user->name }}}</td>
@@ -29,18 +31,6 @@
                             <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
                                class="btn btn-primary">
                                 Read
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{{ route('question.edit', ['id'=> $question->question_id ])}}}"
-                               class="btn btn-success">
-                                Edit
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{{ route('question.delete', ['id'=> $question->question_id ])}}}"
-                               class="btn btn-danger">
-                                Delete
                             </a>
                         </td>
                     </tr>

@@ -3,16 +3,15 @@
 @section('content')
     <div class="container">
         <div class="title text-center">
-            <h1>Question</h1>
-            <div>{{{
-                     'Asked by: ' . $user->name
-                   . ' Created at: ' . $question->created_at
-                   . ' Viewed: ' . $question->view_number
-                   }}}</div>
+            <div>
+                {{{ 'Asked by: ' . $user->name
+                  . ' Created at: ' . $question->created_at
+                  . ' Viewed: ' . $question->view_number }}}
+            </div>
         </div>
-        <!--question vote section-->
         <div class="row justify-content-center">
-            <div class="col-xs-6 float-left" style="width: 50px">
+            <!--question vote section-->
+            <div class="col-xs-6 float-left " style="width: 50px">
                 <div class="vote-section">
                     <h5>Vote</h5>
                     <a href="{{{ route('question.vote_up', ['id'=> $question->question_id ])}}}">
@@ -37,7 +36,19 @@
             <!--question vote section end-->
             <div class="col-md-10 float-right">
                 <div class="card shadow">
-                    <div class="card-header light-grey question-header">{{{ $question->title }}}</div>
+                    <div class="card-header light-grey question-header">
+                        {{{ $question->title }}}
+                        <div class="float-right">
+                        <a href="{{{ route('question.edit', ['id'=> $question->question_id ])}}}"
+                           class="btn btn-secondary">
+                            Edit
+                        </a>
+                        <a href="{{{ route('question.delete', ['id'=> $question->question_id ])}}}"
+                           class="btn btn-danger">
+                            Delete
+                        </a>
+                        </div>
+                    </div>
                     <div class="card-body ">{{{ $question->message }}}</div>
                     <div class="img-responsive">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
@@ -45,8 +56,15 @@
                 </div>
             </div>
         </div>
-        <div class="title text-center">
-            <h1>Answers</h1>
+        <div class="title col-md-10">
+            <h4>Answers</h4>
+        </div>
+        <div class="col-md-10 float-left">
+            <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
+               class="btn btn-primary">
+                Post your answer
+            </a>
         </div>
     </div>
+
 @endsection
