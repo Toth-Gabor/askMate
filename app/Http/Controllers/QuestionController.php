@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Traits\UploadTrait;
-use File;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Question;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Storage;
-use Str;
-
 
 class QuestionController extends Controller
 {
@@ -112,14 +110,14 @@ class QuestionController extends Controller
 
     /**
      * @param Request $request
-     * @return RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(Request $request)
     {
         // Form validation
         $request->validate([
-            'title' => 'required|unique:questions|max:255',
-            'message' => 'required|unique:questions|max:500',
+            'title' => 'unique:questions|max:255',
+            'message' => 'unique:questions|max:500',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -130,16 +128,18 @@ class QuestionController extends Controller
         if ($request->has('image')) {
             // Get image file
             $image = $request->file('image');
+            // Create file name
+            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
             // Define folder path
-            $folder = 'public/uploads/question';
+            $folder = 'storage/uploads/question';
             // Upload image
-            $filePath = Storage::putFile($folder, $image , 'public');
+            $filePath = $request->image->storeAs($folder, $fileName , 'public');
             // Get old image path
             $oldImage = $question->image;
             // Set new image path
             $question->image = $filePath;
             // delete belonging old image for question
-            if (Storage::exists($oldImage)){
+            if (file_exists($oldImage)){
                 Storage::delete($oldImage);
             }
         }
@@ -163,12 +163,12 @@ class QuestionController extends Controller
         $questionId = $request->id;
         $question = Question::find($questionId);
         // delete belonging image to question
-        if (Storage::exists($question->image)){
+        if (file_exists($question->image)){
             Storage::delete($question->image);
         }
         $question->delete();
         // Return user back and show a flash message
-        return redirect()->back()->with(['status' => 'Question was deleted successfully.']);
+        return redirect(route('question.index'))->with(['status' => 'Question was deleted successfully.']);
     }
 
     public function voteUp(Request $request)
