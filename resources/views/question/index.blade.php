@@ -2,24 +2,20 @@
 
 @section('content')
     <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        @include('alert')
         <div class="title text-center">
             <h1 class="text-black-50">All Questions</h1>
         </div>
         <div class="shadow">
             <table class="table table-bordered">
                 <thead class="thead-light">
-                    <tr>
-                        <th>View</th>
-                        <th>Title</th>
-                        <th>Owner</th>
-                        <th>Submission time</th>
-                        <th>Read</th>
-                    </tr>
+                <tr>
+                    <th>View</th>
+                    <th>Title</th>
+                    <th>Owner</th>
+                    <th>Submission time</th>
+                    <th>Read</th>
+                </tr>
                 </thead>
                 @foreach($questionList as $question)
                     <tr class="text">
@@ -28,7 +24,7 @@
                         <td>{{{ $user->name }}}</td>
                         <td>{{{ $question->created_at }}}</td>
                         <td>
-                            <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
+                            <a href="{{{ route('question.show', ['id'=> $question->id ])}}}"
                                class="btn btn-primary">
                                 Read
                             </a>

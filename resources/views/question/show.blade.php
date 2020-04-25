@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('alert')
         <div class="title text-center">
             <div>
                 {{{ 'Asked by: ' . $user->name
@@ -14,7 +15,7 @@
             <div class="col-xs-6 float-left " style="width: 50px">
                 <div class="vote-section">
                     <h5>Vote</h5>
-                    <a href="{{{ route('question.vote_up', ['id'=> $question->question_id ])}}}">
+                    <a href="{{{ route('question.vote_up', ['id'=> $question->id ])}}}">
                         <svg class="bi bi-caret-up-fill" width="2em" height="2em" viewBox="0 0 16 16"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -24,7 +25,7 @@
                 </div>
                 <div class="vote-section">{{{ $question->vote_number }}}</div>
                 <div class="vote-section">
-                    <a href="{{{ route('question.vote_down', ['id'=> $question->question_id ])}}}">
+                    <a href="{{{ route('question.vote_down', ['id'=> $question->id ])}}}">
                         <svg class="bi bi-caret-down-fill" width="2em" height="2em" viewBox="0 0 16 16"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -39,11 +40,11 @@
                     <div class="card-header light-grey question-header">
                         {{{ $question->title }}}
                         <div class="float-right">
-                        <a href="{{{ route('question.edit', ['id'=> $question->question_id ])}}}"
+                        <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}"
                            class="btn btn-secondary">
                             Edit
                         </a>
-                        <a href="{{{ route('question.delete', ['id'=> $question->question_id ])}}}"
+                        <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}"
                            class="btn btn-danger">
                             Delete
                         </a>
@@ -56,13 +57,11 @@
                 </div>
             </div>
         </div>
-        <div class="title col-md-10">
-            <h4>Answers</h4>
-        </div>
+        @include('answer.answer')
         <div class="col-md-10 float-left">
-            <a href="{{{ route('question.show', ['id'=> $question->question_id ])}}}"
+            <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
                class="btn btn-primary">
-                Post your answer
+                Add your answer
             </a>
         </div>
     </div>

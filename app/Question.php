@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $primaryKey = 'question_id';
+    protected $primaryKey = 'id';
     protected $table = 'questions';
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,10 @@ class Question extends Model
         'title', 'message', 'image'
     ];
 
-
+    public function answers()
+    {
+        return $this->hasMany('App\Answer');
+    }
 
 
 }

@@ -30,7 +30,9 @@ class CreateAnswersTable extends Migration
             $table->timestamp('submission_time')->useCurrent();
             $table->integer('vote_number')->default(0);
             $table->string('message');
-            $table->string('image');
+            $table->string('image')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

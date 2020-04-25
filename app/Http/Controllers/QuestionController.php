@@ -38,12 +38,17 @@ class QuestionController extends Controller
         $questionId = $request->id;
 
         $question = Question::find($questionId);
+        $answerList = $question->answers;
         // Increase view count
         $question->view_number++;
         $question->save();
         $user = User::find($question->user_id);
 
-        return view('question.show', ['question' => $question, 'user' => $user]);
+        return view('question.show', [
+            'question' => $question,
+            'user' => $user,
+            'answerList' => $answerList
+        ]);
     }
 
     /**
@@ -116,8 +121,8 @@ class QuestionController extends Controller
     {
         // Form validation
         $request->validate([
-            'title' => 'unique:questions|max:255',
-            'message' => 'unique:questions|max:500',
+            'title' => 'string|max:255',
+            'message' => 'string|max:500',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 

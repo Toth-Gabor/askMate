@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Question routes
 Route::get('/question/index', 'QuestionController@index')->name('question.index');
 Route::get('/question/show/{id}', 'QuestionController@show')->name('question.show');
 
@@ -30,6 +30,14 @@ Route::get('/question/delete/{id}', 'QuestionController@delete')->name('question
 
 Route::get('/question/vote_up/{id}', 'QuestionController@voteUp')->name('question.vote_up');
 Route::get('/question/vote_down/{id}', 'QuestionController@voteDown')->name('question.vote_down');
+// Answer routes
+Route::get('/answer/add/{id}', 'AnswerController@add')->name('answer.add');
+Route::post('/answer/create/{id}', 'AnswerController@create')->name('answer.create');
+
+Route::get('/answer/edit/{id}', 'AnswerController@edit')->name('answer.edit');
+Route::post('/answer/update/{id}', 'AnswerController@update')->name('answer.update');
+
+Route::get('/answer/delete/{id}', 'AnswerController@delete')->name('answer.delete');
 
 Auth::routes();
 
