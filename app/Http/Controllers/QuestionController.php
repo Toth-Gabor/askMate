@@ -138,7 +138,7 @@ class QuestionController extends Controller
             // Define folder path
             $folder = 'storage/uploads/question';
             // Upload image
-            $filePath = $request->image->storeAs($folder, $fileName , 'public');
+            $filePath = $image->storeAs($folder, $fileName , 'public');
             // Get old image path
             $oldImage = $question->image;
             // Set new image path
@@ -176,6 +176,10 @@ class QuestionController extends Controller
         return redirect(route('question.index'))->with(['status' => 'Question was deleted successfully.']);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
     public function voteUp(Request $request)
     {
         $questionId = $request->id;
@@ -184,9 +188,12 @@ class QuestionController extends Controller
         $question->save();
 
         return redirect(route('question.index'))->with(['status' => 'Your vote saved successfully.']);
-
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
     public function voteDown(Request $request)
     {
         $questionId = $request->id;

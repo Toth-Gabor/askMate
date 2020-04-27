@@ -39,6 +39,9 @@ Route::post('/answer/update/{id}', 'AnswerController@update')->name('answer.upda
 
 Route::get('/answer/delete/{id}', 'AnswerController@delete')->name('answer.delete');
 
+Route::get('/answer/vote_up/{id}', 'AnswerController@voteUp')->name('answer.vote_up');
+Route::get('/answer/vote_down/{id}', 'AnswerController@voteDown')->name('answer.vote_down');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

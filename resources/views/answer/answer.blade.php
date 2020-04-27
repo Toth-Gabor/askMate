@@ -7,7 +7,7 @@
         <div class="col-xs-6 float-left " style="width: 50px">
             <div class="vote-section">
                 <h5>Vote</h5>
-                <a href="{{{ route('question.vote_up', ['id'=> $question->id ])}}}">
+                <a href="{{{ route('answer.vote_up', ['id'=> $answer->answer_id ])}}}">
                     <svg class="bi bi-caret-up-fill" width="2em" height="2em" viewBox="0 0 16 16"
                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -15,9 +15,9 @@
                     </svg>
                 </a>
             </div>
-            <div class="vote-section">{{{ $question->vote_number }}}</div>
+            <div class="vote-section">{{{ $answer->vote_number }}}</div>
             <div class="vote-section">
-                <a href="{{{ route('question.vote_down', ['id'=> $question->id ])}}}">
+                <a href="{{{ route('answer.vote_down', ['id'=> $answer->answer_id ])}}}">
                     <svg class="bi bi-caret-down-fill" width="2em" height="2em" viewBox="0 0 16 16"
                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
