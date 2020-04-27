@@ -86,7 +86,7 @@ class QuestionController extends Controller
             // Define folder path
             $folder = 'storage/uploads/question';
             // Upload image
-            $filePath = $request->image->storeAs($folder, $fileName , 'public');
+            $filePath = $image->storeAs($folder, $fileName , 'public');
         }
         // New question
         $question = new Question();

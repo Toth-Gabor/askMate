@@ -4,17 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
+use Storage;
 
 class AnswerController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
     public function add(Request $request)
     {
         $questionId = $request->id;
         return view('answer.create', ['questionId' => $questionId]);
     }
 
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
     public function create(Request $request)
     {
         // Form validation
@@ -39,7 +52,7 @@ class AnswerController extends Controller
             // Define folder path
             $folder = 'storage/uploads/answer';
             // Upload image
-            $filePath = $request->image->storeAs($folder, $fileName , 'public');
+            $filePath = $image->storeAs($folder, $fileName, 'public');
             $answer->image = $filePath;
         }
         // New answer
@@ -63,8 +76,20 @@ class AnswerController extends Controller
         //
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
     public function delete(Request $request)
     {
-        //
+        $answerId = $request->id;
+        $answer = Answer::find($answerId);
+        // delete belonging image to question
+        if (file_exists($answer->image)){
+            Storage::delete($answer->image);
+        }
+        $answer->delete();
+        // Return user back and show a flash message
+        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was deleted successfully.']);
     }
 }

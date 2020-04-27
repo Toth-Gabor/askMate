@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
@@ -19,6 +20,9 @@ class Question extends Model
         'title', 'message', 'image'
     ];
 
+    /**
+     * @return HasMany
+     */
     public function answers()
     {
         return $this->hasMany('App\Answer');

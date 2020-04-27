@@ -49,14 +49,12 @@ class ProfileController extends Controller
         if ($request->has('profile_image')) {
             // Get image file
             $image = $request->file('profile_image');
-            // Make a image name based on user name and current timestamp
-            $name = Str::slug($request->input('name')).'_'.time();
+            // Create file name
+            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
             // Define folder path
-            $folder = '/uploads/images/profile/';
-            // Make a file path where image will be stored [ folder path + file name + file extension]
-            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $folder = 'storage/uploads/images/profile/';
             // Upload image
-            $this->uploadOne($image, $folder, 'public', $name);
+            $filePath = $image->storeAs($folder, $fileName , 'public');
             // Set user profile image path in database to filePath
             $user->profile_image = $filePath;
         }
