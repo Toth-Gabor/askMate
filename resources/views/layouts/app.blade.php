@@ -40,7 +40,7 @@
                         <a class="nav-link" href="{{ route('question.add') }}">{{ __('Add') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('question.index') . '?order_by=created_at&direction=desc'}}">{{ __('Questions') }}</a>
+                        <a class="nav-link" href="{{ route('question.index') . '?order_by=created_at&order_direction=desc'}}">{{ __('Questions') }}</a>
                     </li>
                 </ul>
 

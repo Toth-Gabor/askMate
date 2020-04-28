@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
-use App\Question;
 use App\Traits\UploadTrait;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;

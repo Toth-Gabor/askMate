@@ -28,15 +28,15 @@ class QuestionController extends Controller
         // Form validation
         $request->validate([
             'order_by' => 'string|max:255',
-            'direction' => 'string|max:255',
+            'order_direction' => 'string|max:255',
         ]);
 
         $orderBy = $request->order_by;
-        $direction = $request->direction;
+        $orderDirection = $request->order_direction;
 
         $user = Auth()->user();
         $questionList = DB::table('questions')
-            ->orderBy($orderBy, $direction)
+            ->orderBy($orderBy, $orderDirection)
             ->get();
         return view('question.index', ['questionList' => $questionList, 'user' => $user]);
     }
@@ -104,7 +104,7 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index'). '?order_by=created_at&direction=desc')->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index'). '?order_by=created_at&order_direction=desc')->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -154,7 +154,7 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -172,7 +172,7 @@ class QuestionController extends Controller
         }
         $question->delete();
         // Return user back and show a flash message
-        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Question was deleted successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Question was deleted successfully.']);
     }
 
     /**
@@ -186,7 +186,7 @@ class QuestionController extends Controller
         $question->vote_number++;
         $question->save();
 
-        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Your vote saved successfully.']);
     }
 
     /**
@@ -200,7 +200,7 @@ class QuestionController extends Controller
         $question->vote_number--;
         $question->save();
 
-        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Your vote saved successfully.']);
     }
 }
 
