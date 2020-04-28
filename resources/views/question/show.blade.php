@@ -40,14 +40,18 @@
                     <div class="card-header light-grey question-header">
                         {{{ $question->title }}}
                         <div class="float-right">
-                        <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}"
-                           class="btn btn-secondary">
-                            Edit
-                        </a>
-                        <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}"
-                           class="btn btn-danger">
-                            Delete
-                        </a>
+                            <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}"
+                               class="btn btn-secondary">
+                                Edit
+                            </a>
+                            <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}"
+                               class="btn btn-danger">
+                                Delete
+                            </a>
+                            <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
+                               class="btn btn-primary">
+                                Answer it
+                            </a>
                         </div>
                     </div>
                     <div class="card-body ">{{{ $question->message }}}</div>
@@ -58,11 +62,5 @@
             </div>
         </div>
         @include('answer.answer')
-        <div class="col-md-10 float-left">
-            <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
-               class="btn btn-primary">
-                Add your answer
-            </a>
-        </div>
     </div>
 @endsection

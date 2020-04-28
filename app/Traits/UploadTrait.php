@@ -2,18 +2,24 @@
 
 namespace App\Traits;
 
-use Str;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+
+
+use Illuminate\Http\Request;
 
 trait UploadTrait
 {
-    public function uploadOne(UploadedFile $uploadedFile, $folder = null, $disk = 'public', $filename = null)
+    /**
+     * @param Request $request
+     * @param string $folder
+     * @return false|string
+     */
+    public function uploadOne(Request $request, $folder = 'storage/uploads/images')
     {
-        $name = !is_null($filename) ? $filename : Str::random(25);
-
-        $file = $uploadedFile->storeAs($folder, $name . '.' . $uploadedFile->getClientOriginalExtension(), $disk);
-
-        return $file;
+        // Get image file
+        $image = $request->file('image');
+        // Create file name
+        $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
+        // Upload image
+        return $image->storeAs($folder, $fileName, 'public');
     }
 }

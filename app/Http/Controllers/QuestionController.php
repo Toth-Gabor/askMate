@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\UploadTrait;
+use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
@@ -15,16 +16,28 @@ use Storage;
 class QuestionController extends Controller
 {
     use UploadTrait;
+    private $folder = 'storage/uploads/question';
 
     /**
      * all questions
+     * @param Request $request
      * @return Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::find(1);
-        $questionList = Question::all()->sortBy('created_at', SORT_REGULAR, 'desc');
+        // Form validation
+        $request->validate([
+            'order_by' => 'string|max:255',
+            'direction' => 'string|max:255',
+        ]);
 
+        $orderBy = $request->order_by;
+        $direction = $request->direction;
+
+        $user = Auth()->user();
+        $questionList = DB::table('questions')
+            ->orderBy($orderBy, $direction)
+            ->get();
         return view('question.index', ['questionList' => $questionList, 'user' => $user]);
     }
 
@@ -74,19 +87,19 @@ class QuestionController extends Controller
         ]);
 
         // Get current user
-        $user = User::findOrFail(auth()->user()->id);
+        $user = auth()->user();
         $filePath = null;
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            // Get image file
-            $image = $request->file('image');
-            // Create file name
-            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
-            // Define folder path
-            $folder = 'storage/uploads/question';
-            // Upload image
-            $filePath = $image->storeAs($folder, $fileName , 'public');
+//            // Get image file
+//            $image = $request->file('image');
+//            // Create file name
+//            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
+//            // Define folder path
+//            // Upload image
+//            $filePath = $image->storeAs($folder, $fileName, 'public');
+            $filePath = $this->uploadOne($request, $this->folder);
         }
         // New question
         $question = new Question();
@@ -98,7 +111,7 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index'))->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index'). '?order_by=created_at&direction=desc')->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -131,20 +144,13 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            // Get image file
-            $image = $request->file('image');
-            // Create file name
-            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
-            // Define folder path
-            $folder = 'storage/uploads/question';
-            // Upload image
-            $filePath = $image->storeAs($folder, $fileName , 'public');
+            $filePath = $this->uploadOne($request, $this->folder);
             // Get old image path
             $oldImage = $question->image;
             // Set new image path
             $question->image = $filePath;
             // delete belonging old image for question
-            if (file_exists($oldImage)){
+            if (file_exists($oldImage)) {
                 Storage::delete($oldImage);
             }
         }
@@ -155,7 +161,7 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index'))->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -168,12 +174,12 @@ class QuestionController extends Controller
         $questionId = $request->id;
         $question = Question::find($questionId);
         // delete belonging image to question
-        if (file_exists($question->image)){
+        if (file_exists($question->image)) {
             Storage::delete($question->image);
         }
         $question->delete();
         // Return user back and show a flash message
-        return redirect(route('question.index'))->with(['status' => 'Question was deleted successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Question was deleted successfully.']);
     }
 
     /**
@@ -187,7 +193,7 @@ class QuestionController extends Controller
         $question->vote_number++;
         $question->save();
 
-        return redirect(route('question.index'))->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Your vote saved successfully.']);
     }
 
     /**
@@ -201,8 +207,7 @@ class QuestionController extends Controller
         $question->vote_number--;
         $question->save();
 
-        return redirect(route('question.index'))->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.index') . '?order_by=created_at&direction=desc')->with(['status' => 'Your vote saved successfully.']);
     }
-
 }
 

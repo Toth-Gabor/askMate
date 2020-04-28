@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
+use App\Traits\UploadTrait;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
@@ -14,6 +15,9 @@ use Storage;
 
 class AnswerController extends Controller
 {
+    use UploadTrait;
+    private $folder = 'storage/uploads/answer';
+
     /**
      * @param Request $request
      * @return Factory|View
@@ -26,7 +30,7 @@ class AnswerController extends Controller
 
     /**
      * @param Request $request
-     * @return Factory|View
+     * @return RedirectResponse|Redirector
      */
     public function create(Request $request)
     {
@@ -38,21 +42,15 @@ class AnswerController extends Controller
 
         $questionId = $request->id;
         // Get current user
-        $user = User::findOrFail(auth()->user()->id);
+        $user = auth()->user();
         $question = Question::find($questionId);
 
         $answer = new Answer();
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            // Get image file
-            $image = $request->file('image');
-            // Create file name
-            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
-            // Define folder path
-            $folder = 'storage/uploads/answer';
             // Upload image
-            $filePath = $image->storeAs($folder, $fileName, 'public');
+            $filePath = $this->uploadOne($request, $this->folder);
             $answer->image = $filePath;
         }
         // New answer
@@ -63,7 +61,8 @@ class AnswerController extends Controller
         // Persist answer record to database
         $answer->save();
         // Return user back and show a flash message
-        return view('question.show', ['question' => $question, 'user' => $user])->with(['status' => 'New answer added successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'New answer added successfully.']);
+
     }
 
     /**
