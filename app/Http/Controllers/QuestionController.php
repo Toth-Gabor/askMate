@@ -92,13 +92,6 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-//            // Get image file
-//            $image = $request->file('image');
-//            // Create file name
-//            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
-//            // Define folder path
-//            // Upload image
-//            $filePath = $image->storeAs($folder, $fileName, 'public');
             $filePath = $this->uploadOne($request, $this->folder);
         }
         // New question

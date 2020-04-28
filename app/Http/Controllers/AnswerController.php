@@ -43,20 +43,19 @@ class AnswerController extends Controller
         $questionId = $request->id;
         // Get current user
         $user = auth()->user();
-        $question = Question::find($questionId);
-
-        $answer = new Answer();
+        $filePath = null;
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
             // Upload image
             $filePath = $this->uploadOne($request, $this->folder);
-            $answer->image = $filePath;
         }
-        // New answer
+        // New Answer
+        $answer = new Answer();
         $answer->question_id = $questionId;
         $answer->user_id = $user->id;
         $answer->message = $request->message;
+        $answer->image = $filePath;
 
         // Persist answer record to database
         $answer->save();
@@ -91,17 +90,11 @@ class AnswerController extends Controller
 
         $answerId = $request->id;
         $answer = Answer::find($answerId);
-        // todo: image handling function implement!
+
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            // Get image file
-            $image = $request->file('image');
-            // Create file name
-            $fileName = Auth()->user()->name . '_' . time() . '.' . $image->getClientOriginalExtension();
-            // Define folder path
-            $folder = 'storage/uploads/question';
             // Upload image
-            $filePath = $image->storeAs($folder, $fileName , 'public');
+            $filePath = $this->uploadOne($request, $this->folder);
             // Get old image path
             $oldImage = $answer->image;
             // Set new image path
@@ -116,7 +109,6 @@ class AnswerController extends Controller
         // Persist answer record to database
         $answer->save();
         // Return user back and show a flash message
-
         return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was updated successfully.']);
     }
 
