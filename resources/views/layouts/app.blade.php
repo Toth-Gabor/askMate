@@ -40,7 +40,8 @@
                         <a class="nav-link" href="{{ route('question.add') }}">{{ __('Add') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('question.index') . '?order_by=created_at&order_direction=desc'}}">{{ __('Questions') }}</a>
+                        <a class="nav-link"
+                           href="{{ route('question.index') . '?order_by=created_at&order_direction=desc'}}">{{ __('Questions') }}</a>
                     </li>
                 </ul>
 
@@ -57,10 +58,17 @@
                             </li>
                         @endif
                     @else
+                        <li class="nav-link">
+                            <form action="">
+                                <label for="search"></label><input id="search" type="text" placeholder="Enter Keywords"/>
+                            </form>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @if (auth()->user()->image)
-                                    <img src="{{ asset(auth()->user()->image) }}" style="width: 40px; height: 40px; border-radius: 50%;" alt="">
+                                    <img src="{{ asset(auth()->user()->image) }}"
+                                         style="width: 40px; height: 40px; border-radius: 50%;" alt="">
                                 @endif
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>

@@ -3,15 +3,16 @@
 @section('content')
     <div class="container">
         @include('alert')
-        <div class="title text-center">
-            <div>
-                {{{ 'Asked by: ' . $user->name
-                  . ' Created at: ' . $question->created_at
-                  . ' Viewed: ' . $question->view_number }}}
+        <div class="grid--cell ws-nowrap mr16 mb10 text-center">
+            <div class="grid--cell ws-nowrap mr16 mb8" title="2019-08-19 15:57:39Z">
+                <span class="fc-light mr2">Asked</span>
+                <time itemprop="dateCreated"
+                      datetime="2019-08-19T15:57:39">{{{ $question->created_at->diffForHumans() }}}</time>
+                <span class="fc-light mr2">Viewed </span>{{{ $question->view_number }}}
             </div>
         </div>
         <div class="row justify-content-center">
-            <!--question vote section-->
+            <!-- Question vote section-->
             <div class="col-xs-6 float-left " style="width: 50px">
                 <div class="vote-section">
                     <h5>Vote</h5>
@@ -34,11 +35,14 @@
                     </a>
                 </div>
             </div>
-            <!--question vote section end-->
+            <!-- Question vote section end-->
+            <!-- Question details section start-->
             <div class="col-md-10 float-right">
                 <div class="card shadow">
                     <div class="card-header light-grey question-header">
-                        {{{ $question->title }}}
+                        <div class="float-left">
+                            {{{ $question->title }}}
+                        </div>
                         <div class="float-right">
                             <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}"
                                class="btn btn-secondary">
@@ -54,13 +58,23 @@
                             </a>
                         </div>
                     </div>
-                    <div class="card-body ">{{{ $question->message }}}</div>
+                    <div class="card-body"><h5>{{{ $question->message }}}</h5></div>
                     <div class="img-responsive">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
                     </div>
+                    <div class="card-body">
+                        @include('comment.comment')
+                    </div>
+                    <div class="card-body">
+                        <a href="{{{ route('comment.add', ['id' => $question->id, 'type' => 'question'])}}}">add a
+                            comment</a>
+                    </div>
                 </div>
             </div>
+            <!-- Question details section start-->
         </div>
-        @include('answer.answer')
+        <!-- Answer section start -->
+    @include('answer.answer')
+    <!-- Answer section end -->
     </div>
 @endsection

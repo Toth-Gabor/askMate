@@ -51,16 +51,21 @@ class QuestionController extends Controller
         $questionId = $request->id;
 
         $question = Question::find($questionId);
+        // Get answers of question
         $answerList = $question->answers;
         // Increase view count
         $question->view_number++;
         $question->save();
+
         $user = User::find($question->user_id);
+        // Get comments of question
+        $questionCommentList = $question->comments;
 
         return view('question.show', [
             'question' => $question,
             'user' => $user,
-            'answerList' => $answerList
+            'answerList' => $answerList,
+            'questionCommentList' => $questionCommentList
         ]);
     }
 

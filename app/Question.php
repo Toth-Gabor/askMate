@@ -28,5 +28,13 @@ class Question extends Model
         return $this->hasMany('App\Answer');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
 
 }

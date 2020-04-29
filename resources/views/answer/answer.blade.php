@@ -30,7 +30,7 @@
         <div class="col-md-10 float-right">
             <div class="card shadow">
                 <div class="card-header light-grey">
-                    {{{ ' Answered: ' . $answer->created_at
+                    {{{ ' Answered: ' . $answer->created_at->diffForHumans()
                       . ' by: ' . \App\User::find($answer->user_id)->name }}}
                     <div class="float-right">
 
@@ -47,6 +47,12 @@
                 <div class="card-body ">{{{ $answer->message }}}</div>
                 <div class="img-responsive">
                     <img class="align-content-center" src='{{{ asset($answer->image) }}}' alt="">
+                </div>
+                <div>
+
+                </div>
+                <div class="card-body">
+                    <a href="{{{ route('comment.add', ['id'=> $question->id, 'type' => 'answer'])}}}">add a comment</a>
                 </div>
             </div>
         </div>

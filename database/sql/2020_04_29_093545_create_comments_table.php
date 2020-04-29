@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnswersTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->bigIncrements('answer_id');
+        Schema::create('comments', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')
@@ -22,14 +22,19 @@ class CreateAnswersTable extends Migration
                 ->onUpdate('cascade');
 
             $table->foreignId('question_id')
-                ->references('question_id')
+                ->references('id')
                 ->on('questions')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->integer('vote_number')->default(0);
+            $table->foreignId('answer_id')
+                ->references('answer_id')
+                ->on('answers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->integer('edited_number')->default(0);
             $table->string('message');
-            $table->string('image')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
@@ -42,6 +47,6 @@ class CreateAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('comments');
     }
 }
