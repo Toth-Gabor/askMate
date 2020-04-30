@@ -207,5 +207,10 @@ class QuestionController extends Controller
 
         return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Your vote saved successfully.']);
     }
+
+    private function getAnswerComments()
+    {
+
+    }
 }
 

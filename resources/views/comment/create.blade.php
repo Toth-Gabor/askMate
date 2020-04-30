@@ -25,7 +25,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('comment.create', ['id' => $id, 'type' => $type]) }}" method="POST" role="form" enctype="multipart/form-data">
+                                    <form action="{{ route('comment.create', ['question_id' => $question_id, 'answer_id' => $answer_id, 'type' => $type]) }}" method="POST" role="form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">
                                             <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>

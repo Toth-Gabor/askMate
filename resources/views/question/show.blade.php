@@ -62,11 +62,12 @@
                     <div class="img-responsive">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
                     </div>
+                    <!-- comments of question -->
                     <div class="card-body">
-                        @include('comment.comment')
+                        @include('comment.question-comment')
                     </div>
                     <div class="card-body">
-                        <a href="{{{ route('comment.add', ['id' => $question->id, 'type' => 'question'])}}}">add a
+                        <a href="{{{ route('comment.add', ['question_id' => $question->id, 'type' => 'question'])}}}">add a
                             comment</a>
                     </div>
                 </div>

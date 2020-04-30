@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Answer extends Model
 {
-    protected $primaryKey = 'answer_id';
+    //protected $primaryKey = 'id';
     protected $table = 'answers';
 
     /**

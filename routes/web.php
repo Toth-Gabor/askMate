@@ -42,8 +42,8 @@ Route::get('/answer/delete/{id}', 'AnswerController@delete')->name('answer.delet
 Route::get('/answer/vote_up/{id}', 'AnswerController@voteUp')->name('answer.vote_up');
 Route::get('/answer/vote_down/{id}', 'AnswerController@voteDown')->name('answer.vote_down');
 // Comment routes
-Route::get('/comment/add/{id}', 'CommentController@add')->name('comment.add');
-Route::post('/comment/create/{id}', 'CommentController@create')->name('comment.create');
+Route::get('/comment/add/{question_id}', 'CommentController@add')->name('comment.add');
+Route::post('/comment/create/{question_id}', 'CommentController@create')->name('comment.create');
 
 Route::get('/comment/edit/{id}', 'CommentController@edit')->name('comment.edit');
 Route::post('/comment/update/{id}', 'CommentController@update')->name('comment.update');

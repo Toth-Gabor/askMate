@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Comment;
+use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,8 +20,13 @@ class CommentController extends Controller
     public function add(Request $request)
     {
         $type = $request->type;
-        $id = $request->id;
-        return view('comment.create', ['id' => $id, 'type' => $type]);
+        $questionId = $request->question_id;
+        $answerId = $request->answer_id;
+        return view('comment.create', [
+            'question_id' => $questionId,
+            'answer_id' => $answerId,
+            'type' => $type
+        ]);
     }
 
     /**
@@ -31,8 +37,10 @@ class CommentController extends Controller
     {
         // Form validation
         $request->validate([
+            'question_id' => 'int',
+            'answer_id' => 'int',
             'message' => 'required|max:500',
-            'type' => 'required|max:500',
+            'type' => 'required|max:200',
         ]);
 
         // Get current user
@@ -41,16 +49,17 @@ class CommentController extends Controller
         $comment = new Comment();
         $comment->user_id = $user->id;
         $comment->message = $request->message;
-
-        $id = $request->id;
+        $questionId = $request->question_id;
+        $answerId = $request->answer_id;
         $type = $request->type;
 
+        // comment of question or answer
         if ($type === 'question'){
-            $comment->question_id = $id;
-            $questionId = $id;
+            $comment->question_id = $questionId;
+            $comment->answer_id = null;
         } else {
-            $comment->answer_id = $id;
-            $questionId = Answer::find($id)->question_id;
+            $comment->answer_id = $answerId;
+            $comment->question_id = null;
         }
         // Persist comment record to database
         $comment->save();

@@ -29,7 +29,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{{ route('answer.update', ['id' => $answer->answer_id ])}}}"
+                                    <form action="{{{ route('answer.update', ['id' => $answer->id ])}}}"
                                           enctype="multipart/form-data" method="POST" role="form">
                                         @csrf
                                         <div class="form-group row">

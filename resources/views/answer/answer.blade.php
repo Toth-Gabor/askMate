@@ -7,7 +7,7 @@
         <div class="col-xs-6 float-left " style="width: 50px">
             <div class="vote-section">
                 <h5>Vote</h5>
-                <a href="{{{ route('answer.vote_up', ['id'=> $answer->answer_id ])}}}">
+                <a href="{{{ route('answer.vote_up', ['id'=> $answer->id ])}}}">
                     <svg class="bi bi-caret-up-fill" width="2em" height="2em" viewBox="0 0 16 16"
                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -17,7 +17,7 @@
             </div>
             <div class="vote-section">{{{ $answer->vote_number }}}</div>
             <div class="vote-section">
-                <a href="{{{ route('answer.vote_down', ['id'=> $answer->answer_id ])}}}">
+                <a href="{{{ route('answer.vote_down', ['id'=> $answer->id ])}}}">
                     <svg class="bi bi-caret-down-fill" width="2em" height="2em" viewBox="0 0 16 16"
                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -31,14 +31,14 @@
             <div class="card shadow">
                 <div class="card-header light-grey">
                     {{{ ' Answered: ' . $answer->created_at->diffForHumans()
-                      . ' by: ' . \App\User::find($answer->user_id)->name }}}
+                      . ' by ' . \App\User::find($answer->user_id)->name }}}
                     <div class="float-right">
 
-                        <a href="{{{ route('answer.edit', ['id'=> $answer->answer_id ])}}}"
+                        <a href="{{{ route('answer.edit', ['id'=> $answer->id ])}}}"
                            class="btn btn-secondary">
                             Edit
                         </a>
-                        <a href="{{{ route('answer.delete', ['id'=> $answer->answer_id ])}}}"
+                        <a href="{{{ route('answer.delete', ['id'=> $answer->id ])}}}"
                            class="btn btn-danger">
                             Delete
                         </a>
@@ -48,11 +48,17 @@
                 <div class="img-responsive">
                     <img class="align-content-center" src='{{{ asset($answer->image) }}}' alt="">
                 </div>
-                <div>
-
+                <!-- comments of answer -->
+                <div class="card-body">
+                    @include('comment.answer-comment')
                 </div>
                 <div class="card-body">
-                    <a href="{{{ route('comment.add', ['id'=> $question->id, 'type' => 'answer'])}}}">add a comment</a>
+                    <a href="{{{ route('comment.add', [
+                                                        'question_id'=> $question->id,
+                                                        'answer_id' => $answer->id,
+                                                        'type' => 'answer'
+                                                        ]
+                                                        )}}}">add a comment</a>
                 </div>
             </div>
         </div>
