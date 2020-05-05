@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Question routes
-Route::get('/question/index/{order_by?}/{order_direction?}', 'QuestionController@index')->name('question.index');
+Route::get('/question/index/{order_by?}', 'QuestionController@index')->name('question.index');
 Route::get('/question/show/{id}', 'QuestionController@show')->name('question.show');
 
 Route::get('/question/add', 'QuestionController@add')->name('question.add');

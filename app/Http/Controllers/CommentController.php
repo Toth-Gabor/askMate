@@ -73,10 +73,17 @@ class CommentController extends Controller
      */
     public function edit(Request $request)
     {
-        $answerId = $request->id;
-        $answer = Answer::find($answerId);
+        // Form validation
+        $request->validate([
+            'id' => 'int',
+            'question_id' => 'int'
+        ]);
 
-        return view('answer.update', ['answer' => $answer]);
+        $commentId = $request->id;
+        $questionId = $request->question_id;
+        $comment = Comment::find($commentId);
+
+        return view('comment.update', ['comment' => $comment, 'question_id' => $questionId]);
     }
 
     /**
@@ -87,32 +94,21 @@ class CommentController extends Controller
     {
         // Form validation
         $request->validate([
-            'message' => 'string|max:500',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'id' => 'int',
+            'question_id' => 'int',
+            'message' => 'string|max:500'
         ]);
 
-        $answerId = $request->id;
-        $answer = Answer::find($answerId);
+        $commentId = $request->id;
+        $questionId = $request->question_id;
+        $comment = Comment::find($commentId);
 
-        // Check if an image has been uploaded
-        if ($request->has('image')) {
-            // Upload image
-            $filePath = $this->uploadOne($request, $this->folder);
-            // Get old image path
-            $oldImage = $answer->image;
-            // Set new image path
-            $answer->image = $filePath;
-            // delete belonging old image for question
-            if (file_exists($oldImage)){
-                Storage::delete($oldImage);
-            }
-        }
-        // Update answer data
-        $answer->message = $request->message;
-        // Persist answer record to database
-        $answer->save();
+        // Update comment data
+        $comment->message = $request->message;
+        // Persist comment record to database
+        $comment->save();
         // Return user back and show a flash message
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was updated successfully.']);
+        return redirect(route('question.show', ['id' => $questionId ]))->with(['status' => 'Comment was updated successfully.']);
     }
 
     /**
@@ -121,14 +117,19 @@ class CommentController extends Controller
      */
     public function delete(Request $request)
     {
-        $answerId = $request->id;
-        $answer = Answer::find($answerId);
-        // delete belonging image to question
-        if (file_exists($answer->image)){
-            Storage::delete($answer->image);
-        }
-        $answer->delete();
+        // Form validation
+        $request->validate([
+            'id' => 'int',
+            'question_id' => 'int',
+            'message' => 'string|max:500'
+        ]);
+
+        $commentId = $request->id;
+        $questionId = $request->question_id;
+        $comment = Comment::find($commentId);
+        // Delete comment record from database
+        $comment->delete();
         // Return user back and show a flash message
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was deleted successfully.']);
+        return redirect(route('question.show', ['id' => $questionId ]))->with(['status' => 'Comment was deleted successfully.']);
     }
 }

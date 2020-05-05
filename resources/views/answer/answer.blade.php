@@ -54,11 +54,11 @@
                 </div>
                 <div class="card-body">
                     <a href="{{{ route('comment.add', [
-                                                        'question_id'=> $question->id,
-                                                        'answer_id' => $answer->id,
-                                                        'type' => 'answer'
-                                                        ]
-                                                        )}}}">add a comment</a>
+                                'question_id'=> $question->id,
+                                'answer_id' => $answer->id,
+                                'type' => 'answer'
+                                ]
+                                )}}}">add a comment</a>
                 </div>
             </div>
         </div>

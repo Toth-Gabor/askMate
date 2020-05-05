@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const QUESTIONS = '/question/index';
+    public const QUESTIONS = '/question/index/?order_by=created_at&order_direction=desc';
 
     /**
      * Define your route model bindings, pattern filters, etc.

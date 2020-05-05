@@ -7,11 +7,7 @@
                 <div class="card">
                     <div class="card-header">Edit comment</div>
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                        @include('alert')
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -29,27 +25,17 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{{ route('answer.update', ['id' => $answer->answer_id ])}}}"
-                                          enctype="multipart/form-data" method="POST" role="form">
+                                    <form action="{{ route('comment.update', ['id' => $comment->id, 'question_id' => $question_id]) }}" method="POST" role="form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">
                                             <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
                                             <div class="col-md-6">
-                                                <input id="message" type="text" class="form-control" name="message" value="{{{ $answer->message }}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
-                                            <div class="col-md-6">
-                                                <input id="image" type="file" class="form-control" name="image" value="{{{ $answer->image }}}">
-                                                @if ($answer->image)
-                                                    <code>{{ $answer->image }}</code>
-                                                @endif
+                                                <input id="message" type="text" class="form-control" name="message" value="{{{ $comment->message }}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-0 mt-5">
                                             <div class="col-md-8 offset-md-4">
-                                                <button type="submit" class="btn btn-primary">Update answer</button>
+                                                <button type="submit" class="btn btn-primary">Update comment</button>
                                             </div>
                                         </div>
                                     </form>
@@ -62,5 +48,4 @@
         </div>
     </div>
 @endsection
-
 
