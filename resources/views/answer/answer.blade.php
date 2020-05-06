@@ -1,4 +1,4 @@
-<div class="title col-md-8 ">
+<div class="title text-center">
     <h4>{{{ sizeof($answerList) > 0 ? sizeof($answerList) . ' Answers' : 'Not answered yet!'}}}</h4>
 </div>
 @foreach($answerList as $answer)
@@ -53,12 +53,10 @@
                     @include('comment.answer-comment')
                 </div>
                 <div class="card-body">
-                    <a href="{{{ route('comment.add', [
-                                'question_id'=> $question->id,
-                                'answer_id' => $answer->id,
-                                'type' => 'answer'
-                                ]
-                                )}}}">add a comment</a>
+                    <a class="btn btn-sm btn-primary" href="{{{ route('comment.add',
+                        ['question_id'=> $question->id, 'answer_id' => $answer->id, 'type' => 'answer'])}}}">
+                        add a comment
+                    </a>
                 </div>
             </div>
         </div>

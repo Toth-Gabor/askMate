@@ -67,7 +67,7 @@
                         @include('comment.question-comment')
                     </div>
                     <div class="card-body">
-                        <a href="{{{ route('comment.add', ['question_id' => $question->id, 'type' => 'question'])}}}">add a
+                        <a class="btn btn-sm btn-primary" href="{{{ route('comment.add', ['question_id' => $question->id, 'type' => 'question'])}}}">add a
                             comment</a>
                     </div>
                 </div>
