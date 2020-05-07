@@ -72,10 +72,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Question details section start-->
+            <!-- Question details section end-->
         </div>
         <!-- Answer section start -->
-    @include('answer.answer')
-    <!-- Answer section end -->
+        @include('answer.answer')
+        <!-- Answer section end -->
     </div>
 @endsection

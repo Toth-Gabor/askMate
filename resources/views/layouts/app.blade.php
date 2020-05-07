@@ -58,9 +58,15 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-link">
-                            <form action="">
-                                <label for="search"></label><input id="search" type="text" placeholder="Enter Keywords"/>
+                        <li>
+                            <form class="navbar-form" action="{{ route('search') }}" role="search" enctype="multipart/form-data">
+                                <div class="input-group">
+                                    <label for="search"></label>
+                                    <input class="form-control" id="search" name="search" type="text" placeholder="Search"/>
+                                    <button type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </form>
                         </li>
                         <li class="nav-item dropdown">

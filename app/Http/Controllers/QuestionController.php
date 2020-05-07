@@ -34,11 +34,10 @@ class QuestionController extends Controller
         $orderBy = $request->order_by;
         $orderDirection = $request->order_direction;
 
-        $user = Auth()->user();
         $questionList = DB::table('questions')
             ->orderBy($orderBy, $orderDirection)
             ->get();
-        return view('question.index', ['questionList' => $questionList, 'user' => $user]);
+        return view('question.index', ['questionList' => $questionList]);
     }
 
     /**
@@ -108,7 +107,6 @@ class QuestionController extends Controller
         // Persist question record to database
         $question->save();
         // Return user back and show a flash message
-
         return redirect(route('question.index'). '?order_by=created_at&order_direction=desc')->with(['status' => 'New question created successfully.']);
     }
 

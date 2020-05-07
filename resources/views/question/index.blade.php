@@ -71,7 +71,7 @@
                         <td>{{{ $question->view_number }}}</td>
                         <td>{{{ $question->vote_number }}}</td>
                         <td>{{{ $question->title }}}</td>
-                        <td>{{{ $user->name }}}</td>
+                        <td>{{{ App\User::find($question->user_id)->name }}}</td>
                         <td>{{{ $question->created_at }}}</td>
                         <td>
                             <a href="{{{ route('question.show', ['id'=> $question->id ])}}}"
