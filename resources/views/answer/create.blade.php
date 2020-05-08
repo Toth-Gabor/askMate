@@ -24,17 +24,21 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    @endif
-                                    <form action="{{ route('answer.create', ['id' => $questionId]) }}" method="POST" role="form" enctype="multipart/form-data">
+                                @endif
+                                    <!--Create answer section-->
+                                    <form action="{{ route('answer.create', ['id' => $questionId]) }}" method="POST"
+                                          role="form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">
-                                            <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
+                                            <label for="message"
+                                                   class="col-md-4 col-form-label text-md-right">Message</label>
                                             <div class="col-md-6">
                                                 <input id="message" type="text" class="form-control" name="message">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+                                            <label for="image"
+                                                   class="col-md-4 col-form-label text-md-right">Image</label>
                                             <div class="col-md-6">
                                                 <input id="image" type="file" class="form-control" name="image">
                                             </div>
@@ -45,6 +49,7 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <!--Create answer section end-->
                                 </div>
                             </div>
                         </div>

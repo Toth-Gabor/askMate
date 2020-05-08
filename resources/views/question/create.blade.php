@@ -28,23 +28,28 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    @endif
-                                    <form action="{{ route('question.create') }}" method="POST" role="form" enctype="multipart/form-data">
+                                @endif
+                                    <!--Create question section-->
+                                    <form action="{{ route('question.create') }}" method="POST" role="form"
+                                          enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">
-                                            <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
+                                            <label for="title"
+                                                   class="col-md-4 col-form-label text-md-right">Title</label>
                                             <div class="col-md-6">
                                                 <input id="title" type="text" class="form-control" name="title">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
+                                            <label for="message"
+                                                   class="col-md-4 col-form-label text-md-right">Message</label>
                                             <div class="col-md-6">
                                                 <input id="message" type="text" class="form-control" name="message">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+                                            <label for="image"
+                                                   class="col-md-4 col-form-label text-md-right">Image</label>
                                             <div class="col-md-6">
                                                 <input id="image" type="file" class="form-control" name="image">
                                             </div>
@@ -55,6 +60,7 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <!--Create question section end-->
                                 </div>
                             </div>
                         </div>

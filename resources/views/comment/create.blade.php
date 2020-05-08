@@ -24,11 +24,15 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    @endif
-                                    <form action="{{ route('comment.create', ['question_id' => $question_id, 'answer_id' => $answer_id, 'type' => $type]) }}" method="POST" role="form" enctype="multipart/form-data">
+                                @endif
+                                    <!--Create comment section-->
+                                    <form
+                                        action="{{ route('comment.create', ['question_id' => $question_id, 'answer_id' => $answer_id, 'type' => $type]) }}"
+                                        method="POST" role="form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">
-                                            <label for="message" class="col-md-4 col-form-label text-md-right">Message</label>
+                                            <label for="message"
+                                                   class="col-md-4 col-form-label text-md-right">Message</label>
                                             <div class="col-md-6">
                                                 <input id="message" type="text" class="form-control" name="message">
                                             </div>
@@ -39,6 +43,7 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <!--Create comment section end-->
                                 </div>
                             </div>
                         </div>
