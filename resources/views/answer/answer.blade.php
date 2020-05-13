@@ -1,5 +1,5 @@
 <div class="title text-center">
-    <h4>{{{ sizeof($answerList) > 0 ? sizeof($answerList) . ' Answers' : 'Not answered yet!'}}}</h4>
+    <h4>{{{ $answerCount > 0 ? $answerCount . ' Answers' : 'Not answered yet!'}}}</h4>
 </div>
 @foreach($answerList as $answer)
     <div class="row justify-content-center">

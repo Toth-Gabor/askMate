@@ -6,8 +6,8 @@ use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use phpDocumentor\Reflection\Types\Collection;
 
 class SearchController extends Controller
 {
@@ -24,6 +24,7 @@ class SearchController extends Controller
         ]);
         $search = $request->search;
         // Search in the DB
+        // todo: modelbe áthelyezni a queryt!
         $questionList = DB::table('questions')
             ->where('title', 'LIKE', '%'. $search. '%')
             ->orWhere('message', 'LIKE', '%'. $search. '%')
@@ -49,7 +50,7 @@ class SearchController extends Controller
     /**
      * Find questions of matching answers
      * @param $search
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     private function getQuestionsOfMatchingAnswer($search)
     {

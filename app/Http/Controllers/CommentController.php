@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Answer;
 use App\Comment;
-use DB;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +17,13 @@ class CommentController extends Controller
      */
     public function add(Request $request)
     {
+        // Form validation
+        $request->validate([
+            'question_id' => 'int',
+            'answer_id' => 'int',
+            'type' => 'required|max:200',
+        ]);
+
         $type = $request->type;
         $questionId = $request->question_id;
         $answerId = $request->answer_id;

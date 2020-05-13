@@ -16,7 +16,9 @@ use Storage;
 class QuestionController extends Controller
 {
     use UploadTrait;
-    private $folder = 'storage/uploads/question';
+    // todo: konstansba tenni
+    private $defaultStorage = 'storage/uploads/question';
+    private $indexParams = '?order_by=created_at&order_direction=desc';
 
     /**
      * all questions
@@ -53,6 +55,7 @@ class QuestionController extends Controller
         // Get answers of question
         $answerList = $question->answers;
         // Increase view count
+        // todo:eloquint increse megnézni
         $question->view_number++;
         $question->save();
 
@@ -64,6 +67,7 @@ class QuestionController extends Controller
             'question' => $question,
             'user' => $user,
             'answerList' => $answerList,
+            'answerCount' => count($answerList),
             'questionCommentList' => $questionCommentList
         ]);
     }
@@ -96,7 +100,7 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            $filePath = $this->uploadOne($request, $this->folder);
+            $filePath = $this->uploadOne($request, $this->defaultStorage);
         }
         // New question
         $question = new Question();
@@ -107,7 +111,8 @@ class QuestionController extends Controller
         // Persist question record to database
         $question->save();
         // Return user back and show a flash message
-        return redirect(route('question.index'). '?order_by=created_at&order_direction=desc')->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index') . $this->indexParams)
+            ->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -140,7 +145,7 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            $filePath = $this->uploadOne($request, $this->folder);
+            $filePath = $this->uploadOne($request, $this->defaultStorage);
             // Get old image path
             $oldImage = $question->image;
             // Set new image path
@@ -157,7 +162,8 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'New question created successfully.']);
+        return redirect(route('question.index') . $this->indexParams)
+            ->with(['status' => 'New question created successfully.']);
     }
 
     /**
@@ -175,7 +181,8 @@ class QuestionController extends Controller
         }
         $question->delete();
         // Return user back and show a flash message
-        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Question was deleted successfully.']);
+        return redirect(route('question.index') . $this->indexParams)
+            ->with(['status' => 'Question was deleted successfully.']);
     }
 
     /**
@@ -189,7 +196,8 @@ class QuestionController extends Controller
         $question->vote_number++;
         $question->save();
 
-        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.index') . $this->indexParams)
+            ->with(['status' => 'Your vote saved successfully.']);
     }
 
     /**
@@ -203,12 +211,8 @@ class QuestionController extends Controller
         $question->vote_number--;
         $question->save();
 
-        return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')->with(['status' => 'Your vote saved successfully.']);
-    }
-
-    private function getAnswerComments()
-    {
-
+        return redirect(route('question.index') . $this->indexParams)
+            ->with(['status' => 'Your vote saved successfully.']);
     }
 }
 

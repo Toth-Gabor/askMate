@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
 use Illuminate\View\View;
-use Str;
 
 
 class ProfileController extends Controller

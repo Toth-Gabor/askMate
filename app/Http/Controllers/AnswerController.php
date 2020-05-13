@@ -14,7 +14,7 @@ use Storage;
 class AnswerController extends Controller
 {
     use UploadTrait;
-    private $folder = 'storage/uploads/answer';
+    private $defaultStorage = 'storage/uploads/answer';
 
     /**
      * @param Request $request
@@ -46,7 +46,7 @@ class AnswerController extends Controller
         // Check if an image has been uploaded
         if ($request->has('image')) {
             // Upload image
-            $filePath = $this->uploadOne($request, $this->folder);
+            $filePath = $this->uploadOne($request, $this->defaultStorage);
         }
         // New Answer
         $answer = new Answer();
@@ -58,7 +58,8 @@ class AnswerController extends Controller
         // Persist answer record to database
         $answer->save();
         // Return user back and show a flash message
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'New answer added successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))
+            ->with(['status' => 'New answer added successfully.']);
 
     }
 
@@ -92,7 +93,7 @@ class AnswerController extends Controller
         // Check if an image has been uploaded
         if ($request->has('image')) {
             // Upload image
-            $filePath = $this->uploadOne($request, $this->folder);
+            $filePath = $this->uploadOne($request, $this->defaultStorage);
             // Get old image path
             $oldImage = $answer->image;
             // Set new image path
@@ -107,7 +108,8 @@ class AnswerController extends Controller
         // Persist answer record to database
         $answer->save();
         // Return user back and show a flash message
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was updated successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))
+            ->with(['status' => 'Answer was updated successfully.']);
     }
 
     /**
@@ -124,7 +126,8 @@ class AnswerController extends Controller
         }
         $answer->delete();
         // Return user back and show a flash message
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Answer was deleted successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))
+            ->with(['status' => 'Answer was deleted successfully.']);
     }
 
     /**
@@ -138,7 +141,8 @@ class AnswerController extends Controller
         $answer->vote_number++;
         $answer->save();
 
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))
+            ->with(['status' => 'Your vote saved successfully.']);
     }
 
     /**
@@ -152,6 +156,7 @@ class AnswerController extends Controller
         $answer->vote_number--;
         $answer->save();
 
-        return redirect(route('question.show', ['id' => $answer->question_id ]))->with(['status' => 'Your vote saved successfully.']);
+        return redirect(route('question.show', ['id' => $answer->question_id ]))
+            ->with(['status' => 'Your vote saved successfully.']);
     }
 }
