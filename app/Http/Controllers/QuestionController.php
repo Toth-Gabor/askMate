@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Traits\UploadTrait;
 use DB;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +28,6 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        // Form validation
         $request->validate([
             'order_by' => 'string|max:255',
             'order_direction' => 'string|max:255',
@@ -62,13 +62,15 @@ class QuestionController extends Controller
         $user = User::find($question->user_id);
         // Get comments of question
         $questionCommentList = $question->comments;
+        $tagList = Tag::all();
 
         return view('question.show', [
             'question' => $question,
             'user' => $user,
             'answerList' => $answerList,
             'answerCount' => count($answerList),
-            'questionCommentList' => $questionCommentList
+            'questionCommentList' => $questionCommentList,
+            'tagList' => $tagList
         ]);
     }
 

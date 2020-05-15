@@ -28,7 +28,7 @@ class CreateCommentsTable extends Migration
                 ->onUpdate('cascade');
 
             $table->foreignId('answer_id')
-                ->references('answer_id')
+                ->references('id')
                 ->on('answers')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

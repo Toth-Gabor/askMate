@@ -62,12 +62,28 @@
                     <div class="img-responsive">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
                     </div>
+
+                    <div class="card-body">
+                        <div class="grid ps-relative d-block">
+                            <h7>tags:</h7>
+                            @foreach($tagList as $tag)
+                                <a class="btn btn-sm btn-light" href="#">{{{ $tag->name }}}</a>
+                            @endforeach
+                        </div>
+                        <div class="">
+                            <a class="btn btn-sm btn-primary" href="{{{ route('tag.add', ['id'=> $question->id]) }}}">add
+                                tag</a>
+                        </div>
+                    </div>
+
                     <!-- comments of question -->
                     <div class="card-body">
                         @include('comment.question-comment')
                     </div>
                     <div class="card-body">
-                        <a class="btn btn-sm btn-primary" href="{{{ route('comment.add', ['question_id' => $question->id, 'type' => 'question'])}}}">add a
+                        <a class="btn btn-sm btn-primary"
+                           href="{{{ route('comment.add', ['question_id' => $question->id, 'type' => 'question'])}}}">add
+                            a
                             comment</a>
                     </div>
                 </div>
@@ -75,7 +91,7 @@
             <!-- Question details section end-->
         </div>
         <!-- Answer section start -->
-        @include('answer.answer')
-        <!-- Answer section end -->
+    @include('answer.answer')
+    <!-- Answer section end -->
     </div>
 @endsection
