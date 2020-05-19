@@ -15,20 +15,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>
-                                                        {{ $error }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                                    @include('error')
                                     <form action="{{{ route('question.update', ['id'=> $question->id ])}}}"
                                           enctype="multipart/form-data" method="POST" role="form">
                                         @csrf

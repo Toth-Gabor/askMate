@@ -11,20 +11,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>
-                                                        {{ $error }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                                    @include('error')
                                     <form action="{{ route('comment.update', ['id' => $comment->id, 'question_id' => $question_id]) }}" method="POST" role="form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row">

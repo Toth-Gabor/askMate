@@ -51,7 +51,9 @@ Route::post('/comment/update/{id}', 'CommentController@update')->name('comment.u
 Route::get('/comment/delete/{id}', 'CommentController@delete')->name('comment.delete');
 // Tag routes
 Route::get('/tag/add/{id}', 'TagController@add')->name('tag.add');
-Route::post('/tag/create/{question_id}', 'TagController@create')->name('tag.create');
+Route::get('/tag/store/{id}', 'TagController@store')->name('tag.store');
+Route::post('/tag/create/{id}', 'TagController@create')->name('tag.create');
+Route::get('/tag/delete/{id}', 'TagController@delete')->name('tag.delete');
 
 Auth::routes();
 

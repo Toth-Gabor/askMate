@@ -30,8 +30,12 @@ class Tag extends Model
 
     }
 
-    public function isExist($name)
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getIdByName($name)
     {
-        return self::query()->where('name', '=', $name)->first() === null ? false: true;
+        return self::query()->where('name', '=', $name)->get('id')[0]->id;
     }
 }

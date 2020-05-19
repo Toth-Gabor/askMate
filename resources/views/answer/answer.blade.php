@@ -34,13 +34,11 @@
                       . ' by ' . \App\User::find($answer->user_id)->name }}}
                     <div class="float-right">
 
-                        <a href="{{{ route('answer.edit', ['id'=> $answer->id ])}}}"
-                           class="btn btn-secondary">
-                            Edit
+                        <a href="{{{ route('answer.edit', ['id'=> $answer->id ])}}}">
+                            <i class="fa fa-pen" aria-hidden="true"></i>
                         </a>
-                        <a href="{{{ route('answer.delete', ['id'=> $answer->id ])}}}"
-                           class="btn btn-danger">
-                            Delete
+                        <a href="{{{ route('answer.delete', ['id'=> $answer->id ])}}}">
+                            <i class="fa fa-trash-alt" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>

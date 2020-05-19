@@ -6,11 +6,16 @@
         <div class="col-md-10 float-right">
             <div class="text-secondary">
                 <span>{{{ $comment->message }}}</span>
+                <!-- todo: controllerből érkezzen! -->
                 <a href="">{{{ App\User::find($comment->user_id)->name }}}</a>
                 <span>{{{ $comment->created_at->diffForHumans() }}}</span>
                 <div class="float-right">
-                    <a class="btn-sm btn-secondary" href="{{{ route('comment.edit', ['id'=> $comment->id, 'question_id' => $question->id])}}}">edit</a>
-                    <a class="btn-sm btn-danger" href="{{{ route('comment.delete', ['id'=> $comment->id, 'question_id' => $question->id])}}}">delete</a>
+                    <a href="{{{ route('comment.edit', ['id'=> $comment->id, 'question_id' => $question->id])}}}">
+                        <i class="fa fa-pen" aria-hidden="true"></i>
+                    </a>
+                    <a href="{{{ route('comment.delete', ['id'=> $comment->id, 'question_id' => $question->id])}}}">
+                        <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </div>

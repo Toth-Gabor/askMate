@@ -62,7 +62,11 @@ class QuestionController extends Controller
         $user = User::find($question->user_id);
         // Get comments of question
         $questionCommentList = $question->comments;
-        $tagList = Tag::all();
+        // Get tags of question
+        $tagList = DB::table('question_tags')->select('id', 'name')
+            ->join('tags', 'id', '=', 'question_tags.tag_id', 'inner')
+            ->where('question_id', '=', $questionId)
+            ->get();
 
         return view('question.show', [
             'question' => $question,

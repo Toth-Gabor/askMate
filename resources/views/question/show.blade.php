@@ -44,13 +44,11 @@
                             {{{ $question->title }}}
                         </div>
                         <div class="float-right">
-                            <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}"
-                               class="btn btn-secondary">
-                                Edit
+                            <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}">
+                                <i class="fa fa-pen" aria-hidden="true"></i>
                             </a>
-                            <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}"
-                               class="btn btn-danger">
-                                Delete
+                            <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}">
+                                <i class="fa fa-trash-alt" aria-hidden="true"></i>
                             </a>
                             <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
                                class="btn btn-primary">
@@ -62,12 +60,13 @@
                     <div class="img-responsive">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
                     </div>
-
+                    <!-- Tag section -->
                     <div class="card-body">
                         <div class="grid ps-relative d-block">
                             <h7>tags:</h7>
                             @foreach($tagList as $tag)
                                 <a class="btn btn-sm btn-light" href="#">{{{ $tag->name }}}</a>
+                                <a href="{{{ route('tag.delete', ['id' => $tag->id, 'question_id' => $question->id]) }}}">x</a>
                             @endforeach
                         </div>
                         <div class="">
@@ -75,7 +74,7 @@
                                 tag</a>
                         </div>
                     </div>
-
+                    <!-- Tag section end-->
                     <!-- comments of question -->
                     <div class="card-body">
                         @include('comment.question-comment')

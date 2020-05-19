@@ -37328,6 +37328,12 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.Jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+$(document).on("click", ".open-AddBookDialog", function () {
+  var tagId = $(this).data('id');
+  $(".modal-body #tagId").val(tagId);
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
