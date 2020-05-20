@@ -44,15 +44,15 @@
                             {{{ $question->title }}}
                         </div>
                         <div class="float-right">
+                            <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
+                               class="btn btn-primary">
+                                Answer it
+                            </a>
                             <a href="{{{ route('question.edit', ['id'=> $question->id ])}}}">
                                 <i class="fa fa-pen" aria-hidden="true"></i>
                             </a>
                             <a href="{{{ route('question.delete', ['id'=> $question->id ])}}}">
                                 <i class="fa fa-trash-alt" aria-hidden="true"></i>
-                            </a>
-                            <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
-                               class="btn btn-primary">
-                                Answer it
                             </a>
                         </div>
                     </div>

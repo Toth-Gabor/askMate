@@ -17,9 +17,8 @@ use Storage;
 class QuestionController extends Controller
 {
     use UploadTrait;
-    // todo: konstansba tenni
-    private $defaultStorage = 'storage/uploads/question';
-    private $indexParams = '?order_by=created_at&order_direction=desc';
+    const DEFAULTSTORAGE = 'storage/uploads/question';
+    const INDEXPARAMS = '?order_by=created_at&order_direction=desc';
 
     /**
      * all questions
@@ -106,7 +105,7 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            $filePath = $this->uploadOne($request, $this->defaultStorage);
+            $filePath = $this->uploadOne($request, self::DEFAULTSTORAGE);
         }
         // New question
         $question = new Question();
@@ -117,7 +116,7 @@ class QuestionController extends Controller
         // Persist question record to database
         $question->save();
         // Return user back and show a flash message
-        return redirect(route('question.index') . $this->indexParams)
+        return redirect(route('question.index') . self::INDEXPARAMS)
             ->with(['status' => 'New question created successfully.']);
     }
 
@@ -151,7 +150,7 @@ class QuestionController extends Controller
 
         // Check if an image has been uploaded
         if ($request->has('image')) {
-            $filePath = $this->uploadOne($request, $this->defaultStorage);
+            $filePath = $this->uploadOne($request, self::DEFAULTSTORAGE);
             // Get old image path
             $oldImage = $question->image;
             // Set new image path
@@ -168,7 +167,7 @@ class QuestionController extends Controller
         $question->save();
         // Return user back and show a flash message
 
-        return redirect(route('question.index') . $this->indexParams)
+        return redirect(route('question.index') . self::INDEXPARAMS)
             ->with(['status' => 'New question created successfully.']);
     }
 
@@ -187,7 +186,7 @@ class QuestionController extends Controller
         }
         $question->delete();
         // Return user back and show a flash message
-        return redirect(route('question.index') . $this->indexParams)
+        return redirect(route('question.index') . self::INDEXPARAMS)
             ->with(['status' => 'Question was deleted successfully.']);
     }
 
@@ -202,7 +201,7 @@ class QuestionController extends Controller
         $question->vote_number++;
         $question->save();
 
-        return redirect(route('question.index') . $this->indexParams)
+        return redirect(route('question.index') . self::INDEXPARAMS)
             ->with(['status' => 'Your vote saved successfully.']);
     }
 
@@ -217,7 +216,7 @@ class QuestionController extends Controller
         $question->vote_number--;
         $question->save();
 
-        return redirect(route('question.index') . $this->indexParams)
+        return redirect(route('question.index') . self::INDEXPARAMS)
             ->with(['status' => 'Your vote saved successfully.']);
     }
 }
