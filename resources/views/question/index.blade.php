@@ -13,25 +13,25 @@
                     <th class="text-top">
                         <div class="float-left">View</div>
                         <div class="float-right">
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-asc"
+                            <div style="display: block; height: 15px">
+                                <a class="fas fa-caret-up"
                                    href="{{{ route('question.index') . '?order_by=view_number&order_direction=asc'}}}"></a>
                             </div>
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-desc"
+                            <div style="display: block; height: 15px">
+                                <a class="fas fa-caret-down"
                                    href="{{{ route('question.index') . '?order_by=view_number&order_direction=desc'}}}"></a>
                             </div>
                         </div>
                     </th>
                     <th class="text-top">
                         <div class="float-left">Vote</div>
-                        <div class="float-right">
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-asc"
+                        <div class="float-right align-content-center">
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-up"
                                    href="{{{ route('question.index') . '?order_by=vote_number&order_direction=asc'}}}"></a>
                             </div>
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-desc"
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-down"
                                    href="{{{ route('question.index') . '?order_by=vote_number&order_direction=desc'}}}"></a>
                             </div>
                         </div>
@@ -39,12 +39,12 @@
                     <th class="text-top">
                         <div class="float-left">Title</div>
                         <div class="float-right">
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-asc"
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-up"
                                    href="{{{ route('question.index') . '?order_by=title&order_direction=asc'}}}"></a>
                             </div>
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-desc"
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-down"
                                    href="{{{ route('question.index') . '?order_by=title&order_direction=desc'}}}"></a>
                             </div>
                         </div>
@@ -53,12 +53,12 @@
                     <th class="text-top">
                         <div class="float-left">Submission time</div>
                         <div class="float-right">
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-asc"
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-up"
                                    href="{{{ route('question.index') . '?order_by=created_at&order_direction=asc'}}}"></a>
                             </div>
-                            <div style="display: block; height: 8px">
-                                <a class="fa fa-sort-desc"
+                            <div style="display: block; height: 15px">
+                                <a class="fa fa-caret-down"
                                    href="{{{ route('question.index') . '?order_by=created_at&order_direction=desc'}}}"></a>
                             </div>
                         </div>

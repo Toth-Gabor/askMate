@@ -43,6 +43,7 @@ class LoginController extends Controller
     }
 
     /**
+     * Redirect to index page after logout
      * @param Request $request
      * @return RedirectResponse
      */
@@ -52,6 +53,4 @@ class LoginController extends Controller
         return redirect(route('question.index') . '?order_by=created_at&order_direction=desc')
             ->with(['status' => 'Logged out successfully.']);
     }
-
-
 }

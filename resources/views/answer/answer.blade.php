@@ -4,7 +4,7 @@
 @foreach($answerList as $answer)
     <div class="row justify-content-center">
         <!--answer vote section-->
-        <div class="col-xs-6 float-left " style="width: 50px">
+        <div class="col-xs-6 float-left text-center" style="width: 50px">
             <div class="vote-section">
                 <h5>Vote</h5>
                 <a href="{{{ route('answer.vote_up', ['id'=> $answer->id ])}}}">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="card-body ">{{{ $answer->message }}}</div>
-                <div class="img-responsive">
+                <div class="img-responsive text-center">
                     <img class="align-content-center" src='{{{ asset($answer->image) }}}' alt="">
                 </div>
                 <!-- comments of answer -->

@@ -13,7 +13,7 @@
         </div>
         <div class="row justify-content-center">
             <!-- Question vote section-->
-            <div class="col-xs-6 float-left " style="width: 50px">
+            <div class="col-xs-6 float-left text-center" style="width: 50px">
                 <div class="vote-section">
                     <h5>Vote</h5>
                     <a href="{{{ route('question.vote_up', ['id'=> $question->id ])}}}">
@@ -40,9 +40,7 @@
             <div class="col-md-10 float-right">
                 <div class="card shadow">
                     <div class="card-header light-grey question-header">
-                        <div class="float-left">
-                            {{{ $question->title }}}
-                        </div>
+                        <div class="float-left">{{{ $question->title }}}</div>
                         <div class="float-right">
                             <a href="{{{ route('answer.add', ['id'=> $question->id ])}}}"
                                class="btn btn-primary">
@@ -57,7 +55,7 @@
                         </div>
                     </div>
                     <div class="card-body"><h5>{{{ $question->message }}}</h5></div>
-                    <div class="img-responsive">
+                    <div class="img-responsive text-center">
                         <img class="align-content-center" src='{{{ asset($question->image) }}}' alt="">
                     </div>
                     <!-- Tag section -->

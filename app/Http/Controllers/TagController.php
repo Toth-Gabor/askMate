@@ -13,6 +13,12 @@ use Illuminate\View\View;
 
 class TagController extends Controller
 {
+
+    public function index()
+    {
+
+    }
+
     /**
      * @param Request $request
      * @return Factory|View
