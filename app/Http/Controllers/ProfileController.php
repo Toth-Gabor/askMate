@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
 use Illuminate\View\View;
@@ -27,11 +28,19 @@ class ProfileController extends Controller
     }
 
     /**
+     * @return Factory|View
+     */
+    public function edit()
+    {
+        return view('auth.update');
+    }
+
+    /**
      * You can update your profile details and upload image
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function updateProfile(Request $request)
+    public function update(Request $request)
     {
         // Form validation
         $request->validate([
@@ -61,6 +70,6 @@ class ProfileController extends Controller
         $user->save();
 
         // Return user back and show a flash message
-        return redirect()->back()->with(['status' => 'Profile updated successfully.']);
+        return redirect(route('profile'))->with(['status' => 'Profile updated successfully.']);
     }
 }
