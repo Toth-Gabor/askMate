@@ -41,7 +41,7 @@
                            href="{{ route('question.index') . '?order_by=created_at&order_direction=desc'}}">Questions</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tags</a>
+                        <a class="nav-link" href="{{{ route('tag.index') }}}">Tags</a>
                     </li>
                 </ul>
 

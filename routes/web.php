@@ -50,6 +50,7 @@ Route::post('/comment/update/{id}', 'CommentController@update')->name('comment.u
 
 Route::get('/comment/delete/{id}', 'CommentController@delete')->name('comment.delete');
 // Tag routes
+Route::get('/tag/index', 'TagController@index')->name('tag.index');
 Route::get('/tag/add/{id}', 'TagController@add')->name('tag.add');
 Route::get('/tag/store/{id}', 'TagController@store')->name('tag.store');
 Route::post('/tag/create/{id}', 'TagController@create')->name('tag.create');

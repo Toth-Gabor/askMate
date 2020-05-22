@@ -6,6 +6,7 @@ use App\QuestionTag;
 use App\Tag;
 use DB;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -13,10 +14,20 @@ use Illuminate\View\View;
 
 class TagController extends Controller
 {
-
+    /**
+     * @return Factory|View
+     */
     public function index()
     {
-
+        $tagTDOList = new Collection();
+        $tagList = Tag::all();
+        foreach ($tagList as $tag){
+            $tagCount = DB::table('question_tags')
+                ->where('tag_id', '=', $tag->id)
+                ->count('tag_id');
+            $tagTDOList->push(['tag' => $tag, 'count' => $tagCount]);
+        }
+        return view('tag.index', ['tagTDOList' => $tagTDOList]);
     }
 
     /**
